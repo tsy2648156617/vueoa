@@ -52,28 +52,48 @@
 					// 	index: "tabs",
 					// 	title: "销售管理"
 					// },
-					// {
-					// 	icon: "el-icon-lx-calendar",
-					// 	index: "3",
-					// 	title: "仓库管理",
-					// 	subs: [{
-					// 			index: "Allotwarehouse",
-					// 			title: "仓库调拨"
-					// 		},
-					// 		{
-					// 			index: "Changewarehouse",
-					// 			title: "库存变动"
-					// 		},
-					// 		{
-					// 			index: "Intowarehouse",
-					// 			title: "入库单查询"
-					// 		},
-					// 		{
-					// 			index: "Outwarehouse",
-					// 			title: "出库单查询"
-					// 		}
-					// 	]
-					// },
+				// =========================车辆管理================================
+					{
+						icon: "el-icon-lx-calendar",
+						index: "1",
+						title: "车辆管理",
+						subs: [{
+								index: "Carinformation",
+								title: "车辆信息维护"
+							},
+							{
+								index: "Usecar",
+								title: "车辆使用情况"
+							},
+							{
+								index: "Carapproval",
+								title: "车辆使用申请审批"
+							}
+						]
+					},
+					// ========================人事管理=================================
+					{
+						icon: "el-icon-lx-calendar",
+						index: "2",
+						title: "人事管理",
+						subs: [{
+								index: "Intoemp",
+								title: "员工入职"
+							},
+							{
+								index: "Empregularization",
+								title: "员工转正"
+							},
+							{
+								index: "Deptredeploy",
+								title: "员工调岗"
+							},
+							{
+								index: "Empdimission",
+								title: "员工离职"
+							}
+						]
+					},
 					// {
 					// 	icon: "el-icon-lx-emoji",
 					// 	index: "icon",

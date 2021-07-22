@@ -3,7 +3,15 @@ import {
 	createWebHistory
 } from "vue-router";
 import Home from "../views/Home.vue";
-
+//车辆管理
+import Carapproval from "@/components/car/Carapproval";
+import Carinformation from "@/components/car/Carinformation";
+import Usecar from "@/components/car/Usecar";
+//人事管理
+import Deptredeploy from "@/components/personnel/Deptredeploy";
+import Empdimission from "@/components/personnel/Empdimission";
+import Empregularization from "@/components/personnel/Empregularization";
+import Intoemp from "@/components/personnel/Intoemp";
 
 
 const routes = [{
@@ -24,9 +32,6 @@ const routes = [{
 				"../views/Dashboard.vue")
 		},
 		
-		
-		
-
 		{
 			path: "/table",
 			name: "basetable",
@@ -37,15 +42,65 @@ const routes = [{
 				/* webpackChunkName: "table" */
 				"../views/BaseTable.vue")
 		},
-		
-		// {
-		// 	path: "/Vendor",
-		// 	name: "Vendor",
-		// 	meta: {
-		// 		title: '供应商管理'
-		// 	},
-		// 	component: Vendor
-		// },
+		// ===========================车辆管理====================================
+		{
+			path: "/Carinformation",
+			name: "Carinformation",
+			meta: {
+				title: '车辆信息维护'
+			},
+			component: Carinformation
+		},
+		{
+			path: "/Usecar",
+			name: "Usecar",
+			meta: {
+				title: '车辆使用情况'
+			},
+			component: Usecar
+		},
+		{
+			path: "/Carapproval",
+			name: "Carapproval",
+			meta: {
+				title: '车辆使用申请审批'
+			},
+			component: Carapproval
+		},
+		// ===========================人事管理====================================
+		{
+			path: "/Intoemp",
+			name: "Intoemp",
+			meta: {
+				title: '员工入职'
+			},
+			component: Intoemp
+		},
+		{
+			path: "/Empregularization",
+			name: "Empregularization",
+			meta: {
+				title: '员工转正'
+			},
+			component: Empregularization
+		},
+		{
+			path: "/Deptredeploy",
+			name: "Deptredeploy",
+			meta: {
+				title: '员工调岗'
+			},
+			component: Deptredeploy
+		},
+		{
+			path: "/Empdimission",
+			name: "Empdimission",
+			meta: {
+				title: '员工离职'
+			},
+			component: Empdimission
+		},
+		// =========================================================================================
 		{
 			path: "/charts",
 			name: "basecharts",
@@ -139,7 +194,8 @@ const routes = [{
 				'../views/403.vue')
 		}
 	]
-}, {
+},
+{
 	path: "/login",
 	name: "Login",
 	meta: {
@@ -148,7 +204,8 @@ const routes = [{
 	component: () => import(
 		/* webpackChunkName: "login" */
 		"../views/Login.vue")
-}];
+}
+];
 
 const router = createRouter({
 	history: createWebHistory(process.env.BASE_URL),

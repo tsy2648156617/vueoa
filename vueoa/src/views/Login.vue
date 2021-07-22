@@ -58,7 +58,7 @@ export default {
             this.$refs.login.validate(valid => {
                 if (valid) {
                     var vm = this;
-                    vm.axios.post("http://localhost:8089/cypsi/sys/login",vm.param)
+                    vm.axios.post("http://localhost:8089/oa/login",vm.param)
                     .then(res => {
                           if (typeof res.data.data == "string") {
                                 ElMessage.error(res.data.data);
