@@ -66,9 +66,10 @@ export default {
                                 this.$message.success("登录成功");
                                 localStorage.setItem("ms_userId", res.data.data.user.uid);
                                 localStorage.setItem("ms_username", this.param.uName);
-                                this.$store.commit("setMenus",res.data.data.menus)
+                                // this.$store.commit("setMenus",res.data.data.menus)
                                 this.$router.push("/");
                             }  
+							// console.log(res)
                     })
                   
                 } else {

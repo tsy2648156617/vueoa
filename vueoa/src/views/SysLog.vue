@@ -17,7 +17,7 @@
             >
                 <el-table-column type="index" label="序号" width="55" align="center"></el-table-column>
                 <el-table-column label="操作人" align="center">
-                    <template #default="scope">{{ scope.row.user.uname}}</template>
+                    <template #default="scope">{{ scope.row.user.uName}}</template>
                 </el-table-column>
                 <el-table-column prop="operation" label="操作" align="center"></el-table-column>
                 <el-table-column prop="changeInfo" label="操作信息" align="center"></el-table-column>
@@ -58,12 +58,13 @@ export default {
         // 获取 easy-mock 的模拟数据
         getData() {
             var vm =this;
-            vm.axios.get("http://localhost:8089/cypsi/sys/getAllLog", {
+            vm.axios.get("http://localhost:8089/tsy/oa/getAllLog", {
                 params: {page:vm.query.page,size:vm.query.size}
             })
             .then(res => {
                 vm.tableData =res.data.data.list
                 vm.pageTotal =res.data.data.total
+				console.log(res)
             })
         },
         // 分页导航
