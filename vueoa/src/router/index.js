@@ -12,6 +12,12 @@ import Deptredeploy from "@/components/personnel/Deptredeploy";
 import Empdimission from "@/components/personnel/Empdimission";
 import Empregularization from "@/components/personnel/Empregularization";
 import Intoemp from "@/components/personnel/Intoemp";
+//权限管理
+import Dept from "@/components/sys/Dept";
+import SysLog from "@/components/sys/SysLog";
+import SysMenus from "@/components/sys/SysMenus";
+import SysRole from "@/components/sys/SysRole";
+import SysUser from "@/components/sys/SysUser";
 
 
 const routes = [{
@@ -100,7 +106,59 @@ const routes = [{
 			},
 			component: Empdimission
 		},
-		// =========================================================================================
+		// =======================================系统权限管理==================================================
+		{
+			path: "/SysUser",
+			name: "SysUser",
+			meta: {
+				title: '用户管理'
+			},
+			component: SysUser
+		},
+		{
+			path: "/SysRole",
+			name: "SysRole",
+			meta: {
+				title: '角色管理'
+			},
+			component: SysRole
+		},
+		{
+			path: "/SysMenus",
+			name: "SysMenus",
+			meta: {
+				title: '菜单管理'
+			},
+			component: SysMenus
+		},
+		{
+			path: "/SysLog",
+			name: "SysLog",
+			meta: {
+				title: '日志管理'
+			},
+			component: SysLog
+		},
+		{
+			path: "/Dept",
+			name: "Dept",
+			meta: {
+				title: '部门管理'
+			},
+			component: Dept
+		},
+		{
+			path: "/permission",
+			name: "permission",
+			meta: {
+				title: '权限管理',
+				permission: true
+			},
+			component: () => import(
+				/* webpackChunkName: "permission" */
+				"../components/sys/Permission.vue")
+		},
+		// ================================================================================================================
 		{
 			path: "/charts",
 			name: "basecharts",
@@ -139,17 +197,8 @@ const routes = [{
 			component: () => import(
 				/* webpackChunkName: "donate" */
 				"../views/Donate.vue")
-		}, {
-			path: "/permission",
-			name: "permission",
-			meta: {
-				title: '权限管理',
-				permission: true
-			},
-			component: () => import(
-				/* webpackChunkName: "permission" */
-				"../views/Permission.vue")
-		}, {
+		}, 
+		{
 			path: "/i18n",
 			name: "i18n",
 			meta: {

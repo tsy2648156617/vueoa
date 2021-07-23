@@ -42,16 +42,6 @@
 						index: "dashboard",
 						title: "系统首页"
 					},
-					// {
-					// 	icon: "el-icon-lx-cascades",
-					// 	index: "table",
-					// 	title: "采购管理"
-					// },
-					// {
-					// 	icon: "el-icon-lx-copy",
-					// 	index: "tabs",
-					// 	title: "销售管理"
-					// },
 				// =========================车辆管理================================
 					{
 						icon: "el-icon-lx-calendar",
@@ -94,61 +84,36 @@
 							}
 						]
 					},
-					// {
-					// 	icon: "el-icon-lx-emoji",
-					// 	index: "icon",
-					// 	title: "统计分析",
-					// 	subs: [{
-					// 		index: "purchasing",
-					// 		title: "采购分析"
-					// 	}, {
-					// 		index: "sales",
-					// 		title: "销售分析"
-					// 	}, {
-					// 		index: "warehouse",
-					// 		title: "仓库分析"
-					// 	}, {
-					// 		index: "financial",
-					// 		title: "财务分析"
-					// 	}]
-					// },
-					// {
-					// 	icon: "el-icon-pie-chart",
-					// 	index: "charts",
-					// 	title: "基础资料",
-					// 	subs: [{
-					// 		index: "vendor",
-					// 		title: "供应商管理"
-					// 	}, {
-					// 		index: "customer",
-					// 		title: "客户管理"
-					// 	}, {
-					// 		index: "depot",
-					// 		title: "仓库管理"
-					// 	}, {
-					// 		index: "prosuct",
-					// 		title: "产品管理"
-					// 	}]
-					// },
-					// {
-					//     icon: "el-icon-rank",
-					//     index: "6",
-					//     title: "拖拽组件",
-					//     subs: [
-					//         {
-					//             index: "drag",
-					//             title: "拖拽列表"
-					//         },
-					//         {
-					//             index: "dialog",
-					//             title: "拖拽弹框"
-					//         }
-					//     ]
-					// },
+					// ========================权限管理=================================
 					{
 						icon: "el-icon-lx-global",
-						index: "i18n",
-						title: "系统设置"
+						index: "3",
+						title: "系统管理",
+						subs: [{
+								index: "SysUser",
+								title: "用户管理"
+							},
+							{
+								index: "SysRole",
+								title: "角色管理"
+							},
+							{
+								index: "SysMenus",
+								title: "菜单管理"
+							},
+							{
+								index: "SysLog",
+								title: "日志管理"
+							},
+							{
+								index: "Dept",
+								title: "部门管理"
+							},
+							{
+								index: "permission",
+								title: "权限测试"
+							}
+						]
 					},
 
 				]

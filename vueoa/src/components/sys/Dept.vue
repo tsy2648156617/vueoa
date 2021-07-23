@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import Tool from '../utils/tool'
+import Tool from '../../utils/tool'
 export default {
     name: "baseDept",
     data() {

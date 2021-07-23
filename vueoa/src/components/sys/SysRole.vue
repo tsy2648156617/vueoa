@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import ToolMenu from '../utils/toolMenu'
+import ToolMenu from '../../utils/toolMenu'
 export default {
     name: "setting",
     data() {
