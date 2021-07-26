@@ -1,61 +1,31 @@
 <template>
 	<div>
-		<el-dialog title="员工转正申请" v-model="dialogFormVisible">
+		<el-dialog title="员工离职申请" v-model="dialogFormVisible">
 			<el-form :model="form" ref="form" label-width="100px">
 				<el-row>
-					<el-col :span="12">
-						<el-form-item label="标题:">
-							<el-input v-model="form.title"></el-input>
-						</el-form-item>
-					</el-col>
 					<el-col :span="12">
 						<el-form-item label="申请人:">
 							<el-input v-model="form.applicant"></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="用车人:">
-							<el-input v-model="form.usecarEmp"></el-input>
+						<el-form-item label="申请人部门:">
+							<el-input v-model="form.applyDept"></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="用车部门:">
-							<el-input v-model="form.usecarDept"></el-input>
+						<el-form-item label="现任岗位">
+							<el-input v-model="form.nowJop"></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="车辆:">
-							<el-input v-model="form.vehicle"></el-input>
+						<el-form-item label="离职原因">
+							<el-input v-model="form.dimissionReason"></el-input>
 						</el-form-item>
 					</el-col>
-					<el-col :span="12">
-						<el-form-item label="司机:">
-							<el-input v-model="form.driver"></el-input>
-						</el-form-item>
-					</el-col>
-					<!-- <el-col :span="12">
-						<el-form-item label="开始日期:">
-							<el-input v-model="form.driver"></el-input>
-						</el-form-item>
-					</el-col>
-					<el-col :span="12">
-						<el-form-item label="结束日期:">
-							<el-input v-model="form.driver"></el-input>
-						</el-form-item>
-					</el-col> -->
-					<el-col :span="12">
-						<el-form-item label="事由:" style="width: 600px;">
-							<el-input v-model="form.reasons"></el-input>
-						</el-form-item>
-					</el-col>
-					<!-- <el-col :span="12">
-						<el-form-item label="紧急程度:" style="width: 600px;">
-							<el-input v-model="form.emerg"></el-input>
-						</el-form-item>
-					</el-col> -->
 				</el-row>
 				<el-form-item style="text-align: center;margin-right: 100px;">
-					<el-button size="mini" type="primary" @click="inserUseCar()">确认</el-button>
+					<el-button size="mini" type="primary" @click="inserEmpDimission()">确认</el-button>
 					<el-button @click="dialogFormVisible = false" size="mini">关 闭</el-button>
 				</el-form-item>
 			</el-form>
@@ -102,14 +72,11 @@
 				activeName: 'first',
 				dialogFormVisible: false,
 				form: {
-					title: '',
 					applicant: '',
-					usecarEmp: '',
-					usecarDept: '',
-					vehicle: '',
-					driver: '',
-					reasons: '',
-					emerg: '',
+					applyDept: '',
+					nowJop: '',
+					dimissionReason: '',
+					
 				},
 				pageInfo: {
 					currentPage: 1,
@@ -144,9 +111,9 @@
 					})
 			},
 			//新增调岗
-			inserUseCar() {
+			inserEmpDimission() {
 				const _this = this
-				this.axios.post('http://localhost:8089/oa/inserUseCar', this.form)
+				this.axios.post('http://localhost:8089/oa/inserEmpDimission', this.form)
 					.then(function(response) {
 						_this.dialogFormVisible = false,
 							console.log(response)
