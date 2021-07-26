@@ -8,15 +8,36 @@
 			</el-breadcrumb>
 		</div>
 		<div class="container">
+			<span>
+				用户编号：
+				<el-input v-model="pageInfo.uCode" style="width: 100px;" clearable size="mini"></el-input>
+			</span>
+			<span>
+				用户名称：
+				<el-input v-model="pageInfo.uName" style="width: 100px;" clearable size="mini"></el-input>
+			</span>
+			<span>
+				所属部门：
+				<el-input v-model="pageInfo.uDept" style="width: 100px;" clearable size="mini"></el-input>
+			</span>
+			<span>
+				是否禁用：
+				<el-select v-model="pageInfo.isdisabled" style="width: 100px;" size="mini" clearable>
+					<el-option label="已禁用" value="1"></el-option>
+					<el-option label="未禁用" value="0"></el-option>
+				</el-select>
+			</span>
+			<el-button @click="highSelect()" size="mini" type="success">查询</el-button>
 			<el-button type="primary" icon="el-icon-plus" @click="handleAdd" style="float: right; margin-top: -20px">新增</el-button>
 		</div>
-		<el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
+		<el-table :data="tableData" border class="table" header-cell-class-name="table-header">
 			<el-table-column type="index" label="序号" width="55" align="center"></el-table-column>
+			<el-table-column prop="ucode" label="用户编号" width="55" align="center"></el-table-column>
 			<el-table-column prop="uname" label="用户名称" align="center"></el-table-column>
 			<el-table-column label="部门" align="center">
-				<template #default="scope">{{ scope.row.udept.dname }}</template>
+				<template #default="scope">{{ scope.row.dept.dname }}</template>
 			</el-table-column>
-			<el-table-column label="是否禁用" align="center">
+			<el-table-column label="用户状态" align="center">
 				<template #default="scope">
 					<el-tag :type="
               scope.row.isdisabled === 0
@@ -106,6 +127,12 @@
 					children: "children",
 					// disabled:true
 				},
+				pageInfo:{
+					uCode:'',
+					uName:'',
+					uDept:'',
+					isdisabled:'',
+					}
 			};
 		},
 		created() {
@@ -115,18 +142,10 @@
 			// 获取用户列表
 			getData() {
 				var vm = this;
-				vm.axios.get("http://localhost:8089/cypsi/sys/getAllUser").then((res) => {
-					vm.tableData = res.data.data;
+				vm.axios.get("http://localhost:8089/oa/selectSysUser").then((res) => {
+					vm.tableData = res.data;
+					console.log(res)
 				});
-				vm.axios.get("http://localhost:8089/cypsi/sys/getAllDept").then((res) => {
-					vm.depts = Tool.array2Tree(res.data.data, 0);
-				});
-				vm.axios
-					.get("http://localhost:8089/cypsi/sys/getAllRoles")
-					.then((res) => {
-						vm.roles = res.data.data;
-						console.log("roles=>", vm.roles);
-					});
 			},
 			// 触发搜索按钮
 			handleSearch() {

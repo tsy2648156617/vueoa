@@ -9,19 +9,23 @@
         </div>
         <div class="container">
             <div class="handle-box">
-                <el-button type="primary" icon="el-icon-plus" @click="handleAddRole">新增角色</el-button>
+				<span>
+					用户编号：
+					<el-input v-model="pageInfo.roleName" style="width: 100px;" clearable size="mini"></el-input>
+				</span>
+				<el-button @click="highSelect()" size="mini" type="success">查询</el-button>
+                <el-button type="primary" icon="el-icon-plus" @click="handleAddRole">添加</el-button>
             </div>
             <el-table
                 :data="tableData"
                 border
                 class="table"
                 ref="multipleTable"
-                header-cell-class-name="table-header"
-            >
+                header-cell-class-name="table-header">
                 <el-table-column type="index" label="序号" width="55" align="center"></el-table-column>
                 <el-table-column prop="roleName" label="角色名称" align="center"></el-table-column>
                 <el-table-column prop="foundTime" label="创建时间" align="center"></el-table-column>
-                <el-table-column prop="updateTime" label="最近更新时间" align="center"></el-table-column>
+                <el-table-column prop="remark" label="备注" align="center"></el-table-column>
                 <el-table-column label="操作" width="180" align="center" >
                     <template #default="scope">
                         <el-button
@@ -90,7 +94,10 @@ export default {
               children: 'children',
             },
             checkedMenuIds:[],
-            roleCheckdMenus:[]
+            roleCheckdMenus:[],
+			pageInfo:{
+				roleName:'',
+			}
         };
     },
     created() {
@@ -100,14 +107,10 @@ export default {
         // 获取所有角色
         getData() {
             var vm =this;
-            vm.axios.get("http://localhost:8089/cypsi/sys/getAllRoles")
+            vm.axios.get("http://localhost:8089/oa/selectSysRole")
             .then(res =>{
-                this.tableData=res.data.data
-            })
-
-            vm.axios.get("http://localhost:8089/cypsi/sys/getAllMenu")
-            .then(res => {
-                this.treeData=ToolMenu.array2Tree(res.data.data,0)
+                this.tableData=res.data
+				console.log(res)
             })
         },
         // 删除操作
