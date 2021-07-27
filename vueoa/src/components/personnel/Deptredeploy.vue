@@ -57,10 +57,9 @@
 			</el-table-column>
 			<el-table-column prop="redeployFlowid" label="调岗流程ID">
 			</el-table-column>
-			<el-table-column label="流程状态">
+			<el-table-column label="流程状态" align="center">
 				<template #default="scope">
-					<i class="el-icon-success" v-show="scope.row.flowState==1" style="color:#67c23A;margin-left: 20px;"></i>
-					<i class="el-icon-warning" v-show="scope.row.flowState==0" style="margin-left: 20px;"></i>
+					<el-tag :type="scope.row.flowState === 0? 'success': scope.row.flowState === 1? 'danger': ''">{{ scope.row.flowState == 0 ? "审批中" : "审核通过" }}</el-tag>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -102,7 +101,7 @@
 				this.pageInfo.pagesize = pagesize
 				this.selectDeptRedeploy();
 			},
-			
+
 			//查询调岗信息
 			selectDeptRedeploy() {
 				const this_ = this

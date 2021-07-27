@@ -3,9 +3,9 @@
 		<el-dialog title="员工转正申请" v-model="dialogFormVisible">
 			<el-form :model="form" ref="form" label-width="100px">
 				<el-row>
-						<el-form-item label="标题:">
-							<el-input v-model="form.title"></el-input>
-						</el-form-item>
+					<el-form-item label="标题:">
+						<el-input v-model="form.title"></el-input>
+					</el-form-item>
 					<el-col :span="12">
 						<el-form-item label="申请人:">
 							<el-input v-model="form.applicant"></el-input>
@@ -36,15 +36,15 @@
 							<el-input v-model="form.applyDate"></el-input>
 						</el-form-item>
 					</el-col>
-						<el-form-item label="对本岗位职责的要求的理解:" style="width: 600px;">
-							<el-input v-model="form.jopUnderstand"></el-input>
-						</el-form-item>
-						<el-form-item label="试用期在那些方面有了成长:" style="width: 600px;">
-							<el-input v-model="form.growup"></el-input>
-						</el-form-item>
-						<el-form-item label="目前存在的不足:" style="width: 600px;">
-							<el-input v-model="form.deficiency"></el-input>
-						</el-form-item>
+					<el-form-item label="对本岗位职责的要求的理解:" style="width: 600px;">
+						<el-input v-model="form.jopUnderstand"></el-input>
+					</el-form-item>
+					<el-form-item label="试用期在那些方面有了成长:" style="width: 600px;">
+						<el-input v-model="form.growup"></el-input>
+					</el-form-item>
+					<el-form-item label="目前存在的不足:" style="width: 600px;">
+						<el-input v-model="form.deficiency"></el-input>
+					</el-form-item>
 				</el-row>
 				<el-form-item style="text-align: center;margin-right: 100px;">
 					<el-button size="mini" type="primary" @click="inserEmpRegularization()">确认</el-button>
@@ -71,9 +71,9 @@
 			<el-table-column prop="applyDate" label="申请日期">
 			</el-table-column>
 			<el-table-column label="流程状态">
+				
 				<template #default="scope">
-					<i class="el-icon-success" v-show="scope.row.regularizationState==1" style="color:#67c23A;margin-left: 20px;"></i>
-					<i class="el-icon-warning" v-show="scope.row.regularizationState==0" style="margin-left: 20px;"></i>
+					<el-tag :type="scope.row.regularizationState === 0? 'success': scope.row.regularizationState === 1? 'danger': ''">{{ scope.row.regularizationState == 0 ? "审批中" : "审核通过" }}</el-tag>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -120,7 +120,7 @@
 				this.pageInfo.pagesize = pagesize
 				this.selectEmpRegularization();
 			},
-			
+
 			//查询转正信息
 			selectEmpRegularization() {
 				const this_ = this

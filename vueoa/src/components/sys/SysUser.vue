@@ -162,7 +162,7 @@
 					.then(() => {
 						var vm = this;
 						vm.axios
-							.delete("http://localhost:8089/cypsi/sys/delUser/" + row.uid)
+							.delete("http://localhost:8089/oa/delSysUser/" + row.uid)
 							.then((res) => {
 								if (res.data.success) {
 									this.$notify({

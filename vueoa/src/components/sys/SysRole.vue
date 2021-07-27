@@ -10,7 +10,7 @@
         <div class="container">
             <div class="handle-box">
 				<span>
-					用户编号：
+					角色名称：
 					<el-input v-model="pageInfo.roleName" style="width: 100px;" clearable size="mini"></el-input>
 				</span>
 				<el-button @click="highSelect()" size="mini" type="success">查询</el-button>
@@ -113,6 +113,24 @@ export default {
 				console.log(res)
             })
         },
+		// 高级查询
+		highSelect() {
+			if (this.pageInfo.roleName == "") {
+				this.getData();
+			} else {
+				const _this = this
+				console.log(this.pageInfo)
+				this.axios.get("http://localhost:8089/oa/selectBylikeSysRole", {
+						params: this.pageInfo,
+					})
+					.then(function(response) {
+						_this.tableData = response.data.list
+						console.log(response)
+					}).catch(function(error) {
+						console.log(error)
+					})
+			}
+		},
         // 删除操作
         handleDelete(row) {
             // 二次确认删除
@@ -121,7 +139,7 @@ export default {
             })
                 .then(() => {
                     var vm =this;
-                    vm.axios.delete("http://localhost:8089/cypsi/sys/delRoleAndMenu/"+row.roleId)
+                    vm.axios.delete("http://localhost:8089/oa/delRoleAnd/"+row.roleId)
                     .then(res =>{
                         if(res.data.success){
                             this.$notify({
