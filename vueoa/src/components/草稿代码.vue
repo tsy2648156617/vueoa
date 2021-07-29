@@ -8,38 +8,15 @@
 			</el-breadcrumb>
 		</div>
 		<div class="container">
-			<span>
-				用户编号：
-				<el-input v-model="pageInfo.uCode" style="width: 100px;" clearable size="mini"></el-input>
-			</span>
-			<span>
-				用户名称：
-				<el-input v-model="pageInfo.uName" style="width: 100px;" clearable size="mini"></el-input>
-			</span>
-			<span>
-				所属部门：
-				<el-select value-key="deptid" v-model="pageInfo.dname" placeholder="请选择" style="width: 100px;" clearable size="mini">
-					<el-option v-for="item in tableData" :key="item.dept.deptid" :label="item.dept.dname" :value="item.dept.dname" />
-				</el-select>
-			</span>
-			<span>
-				是否禁用：
-				<el-select v-model="pageInfo.isdisabled" style="width: 100px;" size="mini" clearable>
-					<el-option label="已禁用" value="1"></el-option>
-					<el-option label="未禁用" value="0"></el-option>
-				</el-select>
-			</span>
-			<el-button @click="highSelect()" size="mini" type="success">查询</el-button>
 			<el-button type="primary" icon="el-icon-plus" @click="handleAdd" style="float: right; margin-top: -20px">新增</el-button>
 		</div>
-		<el-table :data="tableData" border class="table" header-cell-class-name="table-header">
+		<el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
 			<el-table-column type="index" label="序号" width="55" align="center"></el-table-column>
-			<el-table-column prop="ucode" label="用户编号" width="55" align="center"></el-table-column>
 			<el-table-column prop="uname" label="用户名称" align="center"></el-table-column>
 			<el-table-column label="部门" align="center">
-				<template #default="scope">{{ scope.row.dept.dname }}</template>
+				<template #default="scope">{{ scope.row.udept.dname }}</template>
 			</el-table-column>
-			<el-table-column label="用户状态" align="center">
+			<el-table-column label="是否禁用" align="center">
 				<template #default="scope">
 					<el-tag :type="
               scope.row.isdisabled === 0
@@ -69,8 +46,12 @@
 				<el-input v-model="form.uname"></el-input>
 			</el-form-item>
 			<el-form-item label="部门">
-				<el-select value-key="deptid" v-model="form.deptid" placeholder="请选择" style="width: 100px;" clearable size="mini">
-					<el-option v-for="item in tableData" :key="item.dept.deptid" :label="item.dept.dname" :value="item.dept.deptid" />
+				<el-select v-model="selectTreeName" placeholder="请选择">
+					<el-option :value="selectTreeName" :label="deptTitle" class="options">
+						<el-tree id="tree-option" ref="selectTree" :accordion="true" :data="depts" :props="props" :default-expand-all="true"
+						 :expand-on-click-node="false" node-key="deptId" :default-expanded-keys="[]" @node-click="handleNodeClick">
+						</el-tree>
+					</el-option>
 				</el-select>
 			</el-form-item>
 			<el-form-item label="密码">
@@ -103,7 +84,7 @@
 </template>
 
 <script>
-	import Tool from "../../utils/tool";
+	import Tool from "../utils/tool";
 	export default {
 		name: "sysUser",
 		data() {
@@ -116,6 +97,9 @@
 				editVisible: false,
 				pageTotal: 0,
 				selectTreeName: "",
+				form: {
+					isdisabled: false,
+				},
 				props: {
 					// 配置项（必选）
 					value: "deptId",
@@ -123,16 +107,6 @@
 					children: "children",
 					// disabled:true
 				},
-				form: {
-					isdisabled: false,
-				},
-				pageInfo: {
-					// role: '',
-					uCode: '',
-					uName: '',
-					dname: '',
-					isdisabled: false,
-				}
 			};
 		},
 		created() {
@@ -142,36 +116,18 @@
 			// 获取用户列表
 			getData() {
 				var vm = this;
-				vm.axios.get("http://localhost:8089/oa/selectSysUser").then((res) => {
-					vm.tableData = res.data;
-					console.log(res)
+				vm.axios.get("http://localhost:8089/cypsi/sys/getAllUser").then((res) => {
+					vm.tableData = res.data.data;
 				});
-				// 获取角色信息
-				vm.axios.get("http://localhost:8089/oa/selectSysRole").then((res) => {
-					vm.roles = res.data;
-					console.log(res)
+				vm.axios.get("http://localhost:8089/cypsi/sys/getAllDept").then((res) => {
+					vm.depts = Tool.array2Tree(res.data.data, 0);
 				});
-			},
-
-			// 高级查询
-			highSelect() {
-				if (this.pageInfo.uCode == "" && this.pageInfo.uName == "" && this.pageInfo.dname == "" && this.pageInfo.isdisabled ==
-					"") {
-					this.getData();
-				} else {
-					const _this = this
-					console.log(this.pageInfo)
-					this.axios.get("http://localhost:8089/oa/selectBylikeSysUser", {
-							params: this.pageInfo,
-						})
-						.then(function(response) {
-							_this.tableData = response.data.list
-							_this.pageInfo.total = response.data.total
-							console.log(response)
-						}).catch(function(error) {
-							console.log(error)
-						})
-				}
+				vm.axios
+					.get("http://localhost:8089/cypsi/sys/getAllRoles")
+					.then((res) => {
+						vm.roles = res.data.data;
+						console.log("roles=>", vm.roles);
+					});
 			},
 			// 触发搜索按钮
 			handleSearch() {
@@ -188,7 +144,7 @@
 					.then(() => {
 						var vm = this;
 						vm.axios
-							.delete("http://localhost:8089/oa/delSysUser/" + row.uid)
+							.delete("http://localhost:8089/cypsi/sys/delUser/" + row.uid)
 							.then((res) => {
 								if (res.data.success) {
 									this.$notify({
@@ -243,18 +199,15 @@
 			},
 			//保存新增用户
 			saveAddUser() {
-				this.editVisible = false;
 				var vm = this;
-				vm.getData();
 				if (vm.form.isdisabled) {
 					vm.form.isdisabled = 1;
 				} else {
 					vm.form.isdisabled = 0;
 				}
 				console.log("isdisabled:" + vm.form.isdisabled);
-				console.log(vm.form);
 				vm.axios
-					.post("http://localhost:8089/oa/insertSysUser", vm.form)
+					.post("http://localhost:8089/cypsi/sys/addUserInfo", vm.form)
 					.then((res) => {
 						if (res.data.success) {
 							this.$notify({
@@ -262,9 +215,9 @@
 								message: "操作成功",
 								type: "success",
 							});
-							// this.editVisible = false;
+							this.editVisible = false;
 							vm.form = {};
-							// vm.getData();
+							vm.getData();
 						}
 					});
 			},

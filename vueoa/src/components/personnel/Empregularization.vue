@@ -54,7 +54,7 @@
 		</el-dialog>
 	</div>
 	<div>
-		<i class="el-icon-truck"></i>
+		<i class="el-icon-coordinate"></i>
 		<span>员工转正</span>
 		<span class="right_span">
 			<el-button type="primary" @click="dialogFormVisible = true">员工转正申请</el-button>

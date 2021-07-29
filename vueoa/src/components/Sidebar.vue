@@ -44,7 +44,7 @@
 					},
 				// =========================车辆管理================================
 					{
-						icon: "el-icon-lx-calendar",
+						icon: "el-icon-truck",
 						index: "1",
 						title: "车辆管理",
 						subs: [{

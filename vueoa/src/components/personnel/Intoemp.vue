@@ -62,7 +62,7 @@
 		</el-dialog>
 	</div>
 	<div>
-		<i class="el-icon-truck"></i>
+		<i class="el-icon-coordinate"></i>
 		<span>车辆使用情况</span>
 		<span class="right_span">
 			<el-button type="primary" @click="dialogFormVisible = true">新建用车申请</el-button>

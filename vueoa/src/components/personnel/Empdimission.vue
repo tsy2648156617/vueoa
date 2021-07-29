@@ -32,7 +32,7 @@
 		</el-dialog>
 	</div>
 	<div>
-		<i class="el-icon-truck"></i>
+		<i class="el-icon-coordinate"></i>
 		<span>员工离职</span>
 		<span class="right_span">
 			<el-button type="primary" @click="dialogFormVisible = true">员工离职申请</el-button>
@@ -95,7 +95,7 @@
 				this.selectEmpDimission();
 			},
 
-			//查询调岗信息
+			//查询离职信息
 			selectEmpDimission() {
 				const this_ = this
 				this.axios.get("http://localhost:8089/oa/selectEmpDimission", {
@@ -109,7 +109,7 @@
 						console.log(error)
 					})
 			},
-			//新增调岗
+			//新增离职
 			inserEmpDimission() {
 				const _this = this
 				this.axios.post('http://localhost:8089/oa/inserEmpDimission', this.form)
